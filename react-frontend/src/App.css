@@ -1,0 +1,73 @@
+.App {
+  text-align: center;
+  font-family: sans-serif;
+  padding-top: 50px;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #61dafb;
+  color: #282c34;
+  margin: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #21a1f1;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.recording-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.recording-button:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.response-section {
+  margin-top: 30px;
+  background-color: #3e4451;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  text-align: left;
+}
+
+.response-section h2 {
+  color: #61dafb;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.response-section p {
+  color: #f0f0f0;
+  line-height: 1.5;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-weight: bold;
+  margin-top: 10px;
+}

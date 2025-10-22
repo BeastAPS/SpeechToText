@@ -1,0 +1,46 @@
+# ------------------------------------
+# 1. PYTHON BACKEND (flask-backend)
+# ------------------------------------
+
+# Virtual Environments
+# Exclude the environment folders for security and portability
+venv/
+.venv/
+python_env/
+__pycache__/
+
+# Python bytecode
+*.pyc
+*.pyd
+*.pyo
+
+# IDE-specific files (optional, but good practice)
+.idea/
+.vscode/
+
+# ------------------------------------
+# 2. SECRETS / CONFIGURATION
+# ------------------------------------
+
+# CRITICAL: Exclude local environment variables
+.env
+.flaskenv
+
+# ------------------------------------
+# 3. NODE / REACT FRONTEND (react-frontend)
+# ------------------------------------
+
+# Node dependencies
+# Exclude the massive node_modules folder
+node_modules/
+
+# Build outputs
+# Exclude the bundled files created by Vite/Webpack
+dist/
+build/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

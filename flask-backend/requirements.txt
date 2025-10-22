@@ -1,0 +1,7 @@
+Flask
+Flask-CORS
+SpeechRecognition
+pyaudio
+google-generativeai
+python-dotenv
+pydub
