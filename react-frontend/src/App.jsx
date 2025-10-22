@@ -6,6 +6,10 @@ function App() {
   const [geminiResponse, setGeminiResponse] = useState('');
   const [promptText, setPromptText] = useState('');
   const [error, setError] = useState('');
+  const [questions, setQuestions] = useState("");
+  const [startedInterview, setInterview] = useState(true);
+  const [allowRecording, setAllowRecording] = useState(false);
+
   
   // Ref to hold the actual audio Blob object for sending to the backend later
   const finalAudioBlobRef = useRef(null); 
@@ -51,6 +55,21 @@ function App() {
       setError("Failed to access microphone. Check permissions.");
       setIsRecording(false);
     }
+  };
+
+  const fetchInterviewQuestions = async () => {
+  try {
+    setInterview(false);
+    setError("Fetching interview questions...");
+    const res = await fetch("http://127.0.0.1:5000/interview");
+    if (!res.ok) throw new Error("Failed to get interview questions");
+    const data = await res.json();
+    setQuestions(data.questions);
+    setAllowRecording(true);
+    setError(""); // clear any old errors
+  } catch (err) {
+    setError(`Error fetching questions: ${err.message}`);
+  }
   };
 
   const stopRecording = () => {
@@ -100,9 +119,26 @@ function App() {
         <h1 className="text-4xl font-bold text-cyan-400">Voice Chat with Gemini</h1>
         <p className="mt-2 text-lg text-gray-400">Record, Review, and Send your prompt.</p>
       </header>
+      {/* Start Interview Section */}
+    <div className="mb-6 w-full">
+      {startedInterview && (
+      <button 
+        onClick={fetchInterviewQuestions}
+        className="w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-semibold transition duration-200"
+      >
+        🎯 Start Interview
+      </button>)}
 
+      {questions && (
+        <div className="mt-4 p-4 border border-gray-700 rounded-lg">
+          <h2 className="text-xl font-bold text-cyan-400 mb-2">Interview Questions:</h2>
+          <pre className="text-gray-300 whitespace-pre-wrap">{questions}</pre>
+        </div>
+      )}
+    </div>
       <div className="w-full max-w-md bg-gray-800 p-6 rounded-xl shadow-2xl">
         {/* Record/Stop Button */}
+        {allowRecording && (
         <button 
           onClick={isRecording ? stopRecording : startRecording}
           disabled={error && !isRecording}
@@ -113,7 +149,7 @@ function App() {
           }
         >
           {isRecording ? '🛑 Stop Recording' : '🎙️ Start New Recording'}
-        </button>
+        </button>)}
 
         {isRecording && <p className="mt-4 text-yellow-400 animate-pulse">Recording... Listening for your voice!</p>}
         {error && <p className="error-message text-red-400 font-medium mt-4">{error}</p>}
